@@ -18,9 +18,11 @@ import {ControllerMethod, Paths, PathsWithParameters} from './requests.models';
  * @param config global configs
  * @param definitions
  * @param basePath base URL path
+ * @param componentPrefix component prefix
  */
 export function processPaths(pathsWithParameters: PathsWithParameters, swaggerPath: string, config: Config,
-                             definitions: ProcessedDefinition[], basePath: string) {
+                             definitions: ProcessedDefinition[], basePath: string, componentPrefix: string,
+                             angularMaterialFormComponent: boolean) {
 
   const paths = preProcessPaths(pathsWithParameters);
   const controllers: ControllerMethod[] = _.flatMap(paths, (methods, url: string) => (
@@ -42,7 +44,8 @@ export function processPaths(pathsWithParameters: PathsWithParameters, swaggerPa
 
   const controllerFiles = _.groupBy(controllers, 'name');
   conf.controllerIgnores.forEach(key => delete controllerFiles[key]);
-  _.forEach(controllerFiles, (methods, name) => processController(methods, name, config, definitions));
+  _.forEach(controllerFiles, (methods, name) => processController(methods, name, config,
+    definitions, componentPrefix, angularMaterialFormComponent));
 }
 
 /**

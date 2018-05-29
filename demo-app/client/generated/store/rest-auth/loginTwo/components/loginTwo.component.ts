@@ -6,25 +6,26 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {RestAuthService} from '../../../controllers/RestAuth';
-import {LoginTwoFormService} from './loginTwo.service';
+import {Store} from '@ngrx/store';
+import {LoginTwoFormService} from '../loginTwo.service';
+import {Start} from '../states/actions';
 
 @Component({
-  selector: 'loginTwo',
+  selector: 'test-login-two',
   templateUrl: './loginTwo.component.html',
 })
 
 export class LoginTwoComponent implements OnInit {
   constructor(
     public loginTwoFormService: LoginTwoFormService,
-    private restauthService: RestAuthService,
+    private store: Store<{}>,
   ) {}
 
   ngOnInit() {
   }
 
-  restauth() {
-    this.restauthService.loginTwo(this.loginTwoFormService.form.value);
+  logintwo() {
+    this.store.dispatch(new Start(this.loginTwoFormService.form.value));
   }
 
 }

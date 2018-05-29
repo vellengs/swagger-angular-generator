@@ -6,25 +6,26 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {OrderService} from '../../../controllers/Order';
-import {OrderFormService} from './order.service';
+import {Store} from '@ngrx/store';
+import {OrderFormService} from '../order.service';
+import {Start} from '../states/actions';
 
 @Component({
-  selector: 'order',
+  selector: 'test-order',
   templateUrl: './order.component.html',
 })
 
 export class OrderComponent implements OnInit {
   constructor(
     public orderFormService: OrderFormService,
-    private orderService: OrderService,
+    private store: Store<{}>,
   ) {}
 
   ngOnInit() {
   }
 
   order() {
-    this.orderService.order(this.orderFormService.form.value);
+    this.store.dispatch(new Start(this.orderFormService.form.value));
   }
 
 }

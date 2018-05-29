@@ -6,25 +6,26 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {RestAuthService} from '../../../controllers/RestAuth';
-import {RestAuthUserPartialUpdateFormService} from './restAuthUserPartialUpdate.service';
+import {Store} from '@ngrx/store';
+import {RestAuthUserPartialUpdateFormService} from '../restAuthUserPartialUpdate.service';
+import {Start} from '../states/actions';
 
 @Component({
-  selector: 'restAuthUserPartialUpdate',
+  selector: 'test-rest-auth-user-partial-update',
   templateUrl: './restAuthUserPartialUpdate.component.html',
 })
 
 export class RestAuthUserPartialUpdateComponent implements OnInit {
   constructor(
     public restAuthUserPartialUpdateFormService: RestAuthUserPartialUpdateFormService,
-    private restauthService: RestAuthService,
+    private store: Store<{}>,
   ) {}
 
   ngOnInit() {
   }
 
-  restauth() {
-    this.restauthService.restAuthUserPartialUpdate(this.restAuthUserPartialUpdateFormService.form.value);
+  restauthuserpartialupdate() {
+    this.store.dispatch(new Start(this.restAuthUserPartialUpdateFormService.form.value));
   }
 
 }

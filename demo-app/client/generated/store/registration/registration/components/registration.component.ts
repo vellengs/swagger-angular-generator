@@ -6,25 +6,26 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {RegistrationService} from '../../../controllers/Registration';
-import {RegistrationFormService} from './registration.service';
+import {Store} from '@ngrx/store';
+import {RegistrationFormService} from '../registration.service';
+import {Start} from '../states/actions';
 
 @Component({
-  selector: 'registration',
+  selector: 'test-registration',
   templateUrl: './registration.component.html',
 })
 
 export class RegistrationComponent implements OnInit {
   constructor(
     public registrationFormService: RegistrationFormService,
-    private registrationService: RegistrationService,
+    private store: Store<{}>,
   ) {}
 
   ngOnInit() {
   }
 
   registration() {
-    this.registrationService.registration(this.registrationFormService.form.value);
+    this.store.dispatch(new Start(this.registrationFormService.form.value));
   }
 
 }

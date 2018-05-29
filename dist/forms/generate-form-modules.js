@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const _ = require("lodash");
 const path = require("path");
+const lodash_1 = require("lodash");
 const conf = require("../conf");
 const utils_1 = require("../utils");
-const angular_maetrial_component_ts_1 = require("./components/angular-material/angular-maetrial-component-ts");
+const angular_material_component_ts_1 = require("./components/angular-material/angular-material-component-ts");
 const angular_material_component_html_1 = require("./components/angular-material/angular-material-component-html");
 // TODO! rename
 const generate_form_service_1 = require("./generate-form-service");
@@ -13,7 +14,9 @@ const shared_module_1 = require("./shared-module");
 const generate_http_actions_1 = require("./states/generate-http-actions");
 const generate_http_effects_1 = require("./states/generate-http-effects");
 const generate_http_reducers_1 = require("./states/generate-http-reducers");
-function createForms(config, name, processedMethods, definitions) {
+const angular_material_module_1 = require("./components/angular-material/angular-material-module");
+const angular_material_shared_module_1 = require("./components/angular-material/angular-material-shared-module");
+function createForms(config, name, processedMethods, definitions, componentPrefix, angularMaterialFormComponent) {
     const kebabName = _.kebabCase(name);
     const formBaseDir = path.join(config.dest, conf.storeDir);
     const formDirName = path.join(formBaseDir, `${kebabName}`);
@@ -50,8 +53,12 @@ function createForms(config, name, processedMethods, definitions) {
         shared_module_1.createSharedModule(config);
         // module.ts
         process_module_1.createModule(config, name, actionClassNameBase, formSubDirName, simpleName, className, generateForms);
-        angular_maetrial_component_ts_1.createComponentTs(config, name, simpleName, formSubDirName, className);
-        angular_material_component_html_1.createComponentHTML(config, name, formParams, definitions, formSubDirName, simpleName);
+        if (angularMaterialFormComponent && processedMethod.methodName !== 'get' && !lodash_1.isEmpty(processedMethod.paramGroups)) {
+            angular_material_component_ts_1.createComponentTs(config, simpleName, formSubDirName, className, componentPrefix);
+            angular_material_component_html_1.createComponentHTML(config, formParams, definitions, formSubDirName, simpleName);
+            angular_material_module_1.createComponentModule(config, simpleName, formSubDirName, className);
+            angular_material_shared_module_1.createAngularMaterialSharedModule(config);
+        }
     }
 }
 exports.createForms = createForms;

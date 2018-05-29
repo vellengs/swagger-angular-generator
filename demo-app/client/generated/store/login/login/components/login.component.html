@@ -1,38 +1,36 @@
 <mat-card>
-  <mat-card-title>Login</mat-card-title>
+  <mat-card-title>login</mat-card-title>
 
     <mat-card-content>
       <div class='row'>
         <div class='col-12'>
 
-          <form [formGroup]='loginFormService.form' (ngSubmit)='login()' class='full-width'>
+          <form [formGroup]="loginFormService.form" (ngSubmit)="login()" class="full-width">
 
-            <div class='row'>
-              <div class='col-12'>
+                <div class="row">
+                  <div class="col-12">
 
-                  <mat-form-field class='account-form-full-width'>
-                    <input matInput type="text" name="email" [formControl]="loginFormService.form.get(email)" placeholder="email" />
-                    <mat-error *ngIf="email.hasError('email')">Email has invalid format</mat-error>
-                    <mat-error *ngIf="email.hasError('required')">This field is required</mat-error>
-                  </mat-form-field>
+                    <mat-form-field class="form-full-width">
+                      <input matInput type="text" name="email" required [formControl]="loginFormService.form.get('loginDto.email')" placeholder="email" />
+                      <mat-error *ngIf="loginFormService.form.get('loginDto.email') && loginFormService.form.get('loginDto.email').hasError('email')">Email has invalid format</mat-error>
+                      <mat-error *ngIf="loginFormService.form.get('loginDto.email') && loginFormService.form.get('loginDto.email').hasError('required')">This field is required</mat-error>
+                    </mat-form-field>
 
-              </div>
-            </div>
+                  </div>
+                </div>
 
-            <div class='row'>
-              <div class='col-12'>
+                <div class="row">
+                  <div class="col-12">
 
-                  <mat-form-field class='account-form-full-width'>
-                    <input matInput type="text" name="password" [formControl]="loginFormService.form.get(password)" placeholder="password" />
-                    <mat-error *ngIf="password.hasError('required')">This field is required</mat-error>
-                  </mat-form-field>
+                    <mat-form-field class="form-full-width">
+                      <input matInput type="text" name="password" required [formControl]="loginFormService.form.get('loginDto.password')" placeholder="password" />
+                      <mat-error *ngIf="loginFormService.form.get('loginDto.password') && loginFormService.form.get('loginDto.password').hasError('required')">This field is required</mat-error>
+                    </mat-form-field>
 
-              </div>
-            </div>
-
-        </form>
-
-        <button mat-raised-button color='primary' type='submit' [disabled]='loginFormService.form.invalid'>
+                  </div>
+                </div>
+            <button mat-raised-button color="primary" type="submit" [disabled]="loginFormService.form.invalid">Save</button>
+          </form>
 
       </div>
     </div>

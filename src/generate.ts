@@ -21,14 +21,16 @@ export interface Config {
  * @param generateStore decides if redux workflow should be generated
  * @param unwrapSingleParamMethods controls if the single param methods should be generated
  * @param swaggerURLPath the path where the swagger ui definition can be found
+ * @param componentPrefix component prefix
  */
 export function generate(
   src: string = conf.apiFile,
   dest: string = conf.outDir,
   generateStore = true,
   unwrapSingleParamMethods = false,
-  swaggerURLPath: string = conf.swaggerURLPath) {
-
+  swaggerURLPath: string = conf.swaggerURLPath,
+  componentPrefix = '',
+  angularMaterialFormComponent = false) {
   let schema: any;
 
   try {
@@ -51,7 +53,8 @@ export function generate(
   if (!fs.existsSync(dest)) fs.mkdirSync(dest);
   const definitions = processDefinitions(schema.definitions, config);
   processPaths(schema.paths, `http://${schema.host}${swaggerURLPath}${conf.swaggerFile}`,
-               config, definitions, schema.basePath);
+               config, definitions, schema.basePath, componentPrefix,
+    angularMaterialFormComponent);
 }
 
 function recreateDirectories(dest: string, generateStore: boolean) {

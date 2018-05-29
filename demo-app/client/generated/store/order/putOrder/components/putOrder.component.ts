@@ -6,25 +6,26 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {OrderService} from '../../../controllers/Order';
-import {PutOrderFormService} from './putOrder.service';
+import {Store} from '@ngrx/store';
+import {PutOrderFormService} from '../putOrder.service';
+import {Start} from '../states/actions';
 
 @Component({
-  selector: 'putOrder',
+  selector: 'test-put-order',
   templateUrl: './putOrder.component.html',
 })
 
 export class PutOrderComponent implements OnInit {
   constructor(
     public putOrderFormService: PutOrderFormService,
-    private orderService: OrderService,
+    private store: Store<{}>,
   ) {}
 
   ngOnInit() {
   }
 
-  order() {
-    this.orderService.putOrder(this.putOrderFormService.form.value);
+  putorder() {
+    this.store.dispatch(new Start(this.putOrderFormService.form.value));
   }
 
 }

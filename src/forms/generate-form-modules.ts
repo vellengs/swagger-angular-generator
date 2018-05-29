@@ -1,13 +1,14 @@
 import * as _ from 'lodash';
 import * as path from 'path';
 
+import {isEmpty} from 'lodash';
 import * as conf from '../conf';
 import {ProcessedDefinition} from '../definitions';
 import {Config} from '../generate';
 import {MethodOutput} from '../requests/requests.models';
 import {Parameter} from '../types';
 import {createDir} from '../utils';
-import {createComponentTs} from './components/angular-material/angular-maetrial-component-ts';
+import {createComponentTs} from './components/angular-material/angular-material-component-ts';
 import {createComponentHTML} from './components/angular-material/angular-material-component-html';
 // TODO! rename
 import {generateFormService} from './generate-form-service';
@@ -16,9 +17,12 @@ import {createSharedModule} from './shared-module';
 import {generateHttpActions, getActionClassNameBase, getClassName} from './states/generate-http-actions';
 import {generateHttpEffects} from './states/generate-http-effects';
 import {generateHttpReducers} from './states/generate-http-reducers';
+import {createComponentModule} from './components/angular-material/angular-material-module';
+import {createAngularMaterialSharedModule} from './components/angular-material/angular-material-shared-module';
 
 export function createForms(config: Config, name: string, processedMethods: MethodOutput[],
-                            definitions: ProcessedDefinition[]) {
+                            definitions: ProcessedDefinition[], componentPrefix: string,
+                            angularMaterialFormComponent: boolean) {
   const kebabName = _.kebabCase(name);
   const formBaseDir = path.join(config.dest, conf.storeDir);
   const formDirName = path.join(formBaseDir, `${kebabName}`);
@@ -62,9 +66,12 @@ export function createForms(config: Config, name: string, processedMethods: Meth
     // module.ts
     createModule(config, name, actionClassNameBase, formSubDirName, simpleName, className, generateForms);
 
-    createComponentTs(config, name, simpleName, formSubDirName, className);
-
-    createComponentHTML(config, name, formParams, definitions,
-         formSubDirName, simpleName);
+    if (angularMaterialFormComponent && processedMethod.methodName !== 'get' && !isEmpty(processedMethod.paramGroups)) {
+      createComponentTs(config, simpleName, formSubDirName, className, componentPrefix);
+      createComponentHTML(config, formParams, definitions,
+           formSubDirName, simpleName);
+      createComponentModule(config, simpleName, formSubDirName, className);
+      createAngularMaterialSharedModule(config);
+    }
   }
 }

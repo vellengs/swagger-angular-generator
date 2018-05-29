@@ -1,47 +1,45 @@
 <mat-card>
-  <mat-card-title>RestAuth</mat-card-title>
+  <mat-card-title>loginTwo</mat-card-title>
 
     <mat-card-content>
       <div class='row'>
         <div class='col-12'>
 
-          <form [formGroup]='loginTwoFormService.form' (ngSubmit)='restauth()' class='full-width'>
+          <form [formGroup]="loginTwoFormService.form" (ngSubmit)="logintwo()" class="full-width">
 
-            <div class='row'>
-              <div class='col-12'>
+                <div class="row">
+                  <div class="col-12">
 
-                  <mat-form-field class='account-form-full-width'>
-                    <input matInput type="text" name="username" [formControl]="loginTwoFormService.form.get(username)" placeholder="username" />
-                  </mat-form-field>
+                    <mat-form-field class="form-full-width">
+                      <input matInput type="text" name="username"  [formControl]="loginTwoFormService.form.get('data.username')" placeholder="username" />
+                    </mat-form-field>
 
-              </div>
-            </div>
+                  </div>
+                </div>
 
-            <div class='row'>
-              <div class='col-12'>
+                <div class="row">
+                  <div class="col-12">
 
-                  <mat-form-field class='account-form-full-width'>
-                    <input matInput type="text" name="email" [formControl]="loginTwoFormService.form.get(email)" placeholder="email" />
-                    <mat-error *ngIf="email.hasError('email')">Email has invalid format</mat-error>
-                  </mat-form-field>
+                    <mat-form-field class="form-full-width">
+                      <input matInput type="text" name="email"  [formControl]="loginTwoFormService.form.get('data.email')" placeholder="email" />
+                      <mat-error *ngIf="loginTwoFormService.form.get('data.email') && loginTwoFormService.form.get('data.email').hasError('email')">Email has invalid format</mat-error>
+                    </mat-form-field>
 
-              </div>
-            </div>
+                  </div>
+                </div>
 
-            <div class='row'>
-              <div class='col-12'>
+                <div class="row">
+                  <div class="col-12">
 
-                  <mat-form-field class='account-form-full-width'>
-                    <input matInput type="text" name="password" [formControl]="loginTwoFormService.form.get(password)" placeholder="password" />
-                    <mat-error *ngIf="password.hasError('required')">This field is required</mat-error>
-                  </mat-form-field>
+                    <mat-form-field class="form-full-width">
+                      <input matInput type="text" name="password" required [formControl]="loginTwoFormService.form.get('data.password')" placeholder="password" />
+                      <mat-error *ngIf="loginTwoFormService.form.get('data.password') && loginTwoFormService.form.get('data.password').hasError('required')">This field is required</mat-error>
+                    </mat-form-field>
 
-              </div>
-            </div>
-
-        </form>
-
-        <button mat-raised-button color='primary' type='submit' [disabled]='loginTwoFormService.form.invalid'>
+                  </div>
+                </div>
+            <button mat-raised-button color="primary" type="submit" [disabled]="loginTwoFormService.form.invalid">Save</button>
+          </form>
 
       </div>
     </div>

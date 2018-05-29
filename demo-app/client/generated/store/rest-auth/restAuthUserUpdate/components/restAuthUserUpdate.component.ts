@@ -6,25 +6,26 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {RestAuthService} from '../../../controllers/RestAuth';
-import {RestAuthUserUpdateFormService} from './restAuthUserUpdate.service';
+import {Store} from '@ngrx/store';
+import {RestAuthUserUpdateFormService} from '../restAuthUserUpdate.service';
+import {Start} from '../states/actions';
 
 @Component({
-  selector: 'restAuthUserUpdate',
+  selector: 'test-rest-auth-user-update',
   templateUrl: './restAuthUserUpdate.component.html',
 })
 
 export class RestAuthUserUpdateComponent implements OnInit {
   constructor(
     public restAuthUserUpdateFormService: RestAuthUserUpdateFormService,
-    private restauthService: RestAuthService,
+    private store: Store<{}>,
   ) {}
 
   ngOnInit() {
   }
 
-  restauth() {
-    this.restauthService.restAuthUserUpdate(this.restAuthUserUpdateFormService.form.value);
+  restauthuserupdate() {
+    this.store.dispatch(new Start(this.restAuthUserUpdateFormService.form.value));
   }
 
 }

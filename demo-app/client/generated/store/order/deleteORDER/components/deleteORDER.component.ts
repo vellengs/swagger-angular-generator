@@ -6,25 +6,26 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {OrderService} from '../../../controllers/Order';
-import {DeleteORDERFormService} from './deleteORDER.service';
+import {Store} from '@ngrx/store';
+import {DeleteORDERFormService} from '../deleteORDER.service';
+import {Start} from '../states/actions';
 
 @Component({
-  selector: 'deleteORDER',
+  selector: 'test-delete-o-r-d-e-r',
   templateUrl: './deleteORDER.component.html',
 })
 
 export class DeleteORDERComponent implements OnInit {
   constructor(
     public deleteORDERFormService: DeleteORDERFormService,
-    private orderService: OrderService,
+    private store: Store<{}>,
   ) {}
 
   ngOnInit() {
   }
 
-  order() {
-    this.orderService.deleteORDER(this.deleteORDERFormService.form.value);
+  deleteorder() {
+    this.store.dispatch(new Start(this.deleteORDERFormService.form.value));
   }
 
 }

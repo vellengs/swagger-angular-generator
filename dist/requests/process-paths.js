@@ -15,8 +15,9 @@ const process_controller_1 = require("./process-controller");
  * @param config global configs
  * @param definitions
  * @param basePath base URL path
+ * @param componentPrefix component prefix
  */
-function processPaths(pathsWithParameters, swaggerPath, config, definitions, basePath) {
+function processPaths(pathsWithParameters, swaggerPath, config, definitions, basePath, componentPrefix, angularMaterialFormComponent) {
     const paths = preProcessPaths(pathsWithParameters);
     const controllers = _.flatMap(paths, (methods, url) => (_.map(methods, (method, methodName) => ({
         url,
@@ -34,7 +35,7 @@ function processPaths(pathsWithParameters, swaggerPath, config, definitions, bas
     }))));
     const controllerFiles = _.groupBy(controllers, 'name');
     conf.controllerIgnores.forEach(key => delete controllerFiles[key]);
-    _.forEach(controllerFiles, (methods, name) => process_controller_1.processController(methods, name, config, definitions));
+    _.forEach(controllerFiles, (methods, name) => process_controller_1.processController(methods, name, config, definitions, componentPrefix, angularMaterialFormComponent));
 }
 exports.processPaths = processPaths;
 /**

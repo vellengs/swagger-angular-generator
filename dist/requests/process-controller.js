@@ -13,10 +13,9 @@ const process_method_1 = require("./process-method");
 const process_responses_1 = require("./process-responses");
 /**
  * Creates and serializes class for api communication for controller
- * @param controllers list of methods of the controller
  * @param name
  */
-function processController(methods, name, config, definitions) {
+function processController(methods, name, config, definitions, componentPrefix, angularMaterialFormComponent) {
     const filename = path.join(config.dest, conf.apiDir, `${name}.ts`);
     let usesGlobalType = false;
     // make simpleNames unique and process responses
@@ -60,7 +59,7 @@ function processController(methods, name, config, definitions) {
     utils_1.writeFile(filename, content, config.header);
     /* forms */
     if (config.generateStore) {
-        generate_form_modules_1.createForms(config, name, processedMethods, definitions);
+        generate_form_modules_1.createForms(config, name, processedMethods, definitions, componentPrefix, angularMaterialFormComponent);
     }
 }
 exports.processController = processController;

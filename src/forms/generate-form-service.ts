@@ -9,11 +9,6 @@ import {parameterToSchema} from '../requests/process-params';
 import {NativeNames, Parameter, Schema} from '../types';
 import {indent, writeFile} from '../utils';
 
-export interface FieldDefinition {
-  content: string;
-  params: string[];
-}
-
 export function generateFormService(config: Config, name: string, params: Parameter[],
                                     definitions: ProcessedDefinition[], simpleName: string,
                                     formSubDirName: string, className: string) {

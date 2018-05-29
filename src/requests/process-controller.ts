@@ -16,11 +16,11 @@ import {ControllerMethod, MethodOutput} from './requests.models';
 
 /**
  * Creates and serializes class for api communication for controller
- * @param controllers list of methods of the controller
  * @param name
  */
 export function processController(methods: ControllerMethod[], name: string, config: Config,
-                                  definitions: ProcessedDefinition[]) {
+                                  definitions: ProcessedDefinition[], componentPrefix: string,
+                                  angularMaterialFormComponent: boolean) {
   const filename = path.join(config.dest, conf.apiDir, `${name}.ts`);
   let usesGlobalType = false;
 
@@ -76,6 +76,7 @@ export function processController(methods: ControllerMethod[], name: string, con
 
   /* forms */
   if (config.generateStore) {
-    createForms(config, name, processedMethods, definitions);
+    createForms(config, name, processedMethods, definitions, componentPrefix,
+      angularMaterialFormComponent);
   }
 }

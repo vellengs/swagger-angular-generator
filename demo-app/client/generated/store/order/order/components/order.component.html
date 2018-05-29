@@ -1,46 +1,44 @@
 <mat-card>
-  <mat-card-title>Order</mat-card-title>
+  <mat-card-title>order</mat-card-title>
 
     <mat-card-content>
       <div class='row'>
         <div class='col-12'>
 
-          <form [formGroup]='orderFormService.form' (ngSubmit)='order()' class='full-width'>
+          <form [formGroup]="orderFormService.form" (ngSubmit)="order()" class="full-width">
 
-            <div class='row'>
-              <div class='col-12'>
+                <div class="row">
+                  <div class="col-12">
 
-                  <mat-form-field class='account-form-full-width'>
-                    <input matInput type="text" name="id" [formControl]="orderFormService.form.get(id)" placeholder="id" />
-                    <mat-error *ngIf="id.hasError('required')">This field is required</mat-error>
+                    <mat-form-field class="form-full-width">
+                      <input matInput type="text" name="id" required [formControl]="orderFormService.form.get('orderDto.id')" placeholder="id" />
+                      <mat-error *ngIf="orderFormService.form.get('orderDto.id') && orderFormService.form.get('orderDto.id').hasError('required')">This field is required</mat-error>
+                    </mat-form-field>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+
+                    <mat-form-field class="form-full-width">
+                      <input matInput type="text" name="name"  [formControl]="orderFormService.form.get('orderDto.name')" placeholder="name" />
+                    </mat-form-field>
+
+                  </div>
+                </div>
+
+              <div class="row">
+                <div class="col-12">
+
+                  <mat-form-field class="form-full-width">
+                    <input matInput type="text" name="producer"  [formControl]="orderFormService.form.get('producer')" placeholder="producer" />
                   </mat-form-field>
 
+                </div>
               </div>
-            </div>
-
-            <div class='row'>
-              <div class='col-12'>
-
-                  <mat-form-field class='account-form-full-width'>
-                    <input matInput type="text" name="name" [formControl]="orderFormService.form.get(name)" placeholder="name" />
-                  </mat-form-field>
-
-              </div>
-            </div>
-
-            <div class='row'>
-              <div class='col-12'>
-
-                  <mat-form-field class='account-form-full-width'>
-                    <input matInput type="text" name="producer" [formControl]="orderFormService.form.get(producer)" placeholder="producer" />
-                  </mat-form-field>
-
-              </div>
-            </div>
-
-        </form>
-
-        <button mat-raised-button color='primary' type='submit' [disabled]='orderFormService.form.invalid'>
+            <button mat-raised-button color="primary" type="submit" [disabled]="orderFormService.form.invalid">Save</button>
+          </form>
 
       </div>
     </div>

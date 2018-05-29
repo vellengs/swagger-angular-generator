@@ -1,59 +1,57 @@
 <mat-card>
-  <mat-card-title>Order</mat-card-title>
+  <mat-card-title>putOrder</mat-card-title>
 
     <mat-card-content>
       <div class='row'>
         <div class='col-12'>
 
-          <form [formGroup]='putOrderFormService.form' (ngSubmit)='order()' class='full-width'>
+          <form [formGroup]="putOrderFormService.form" (ngSubmit)="putorder()" class="full-width">
 
-            <div class='row'>
-              <div class='col-12'>
+              <div class="row">
+                <div class="col-12">
 
-                  <mat-form-field class='account-form-full-width'>
-                    <input matInput type="text" name="orderId" [formControl]="putOrderFormService.form.get(orderId)" placeholder="orderId" />
-                    <mat-error *ngIf="orderId.hasError('required')">This field is required</mat-error>
+                  <mat-form-field class="form-full-width">
+                    <input matInput type="text" name="orderId" required [formControl]="putOrderFormService.form.get('orderId')" placeholder="orderId" />
+                    <mat-error *ngIf="putOrderFormService.form.get('orderId') && putOrderFormService.form.get('orderId').hasError('required')">This field is required</mat-error>
                   </mat-form-field>
 
+                </div>
               </div>
-            </div>
 
-            <div class='row'>
-              <div class='col-12'>
+              <div class="row">
+                <div class="col-12">
 
-                  <mat-form-field class='account-form-full-width'>
-                    <input matInput type="text" name="producer" [formControl]="putOrderFormService.form.get(producer)" placeholder="producer" />
-                    <mat-error *ngIf="producer.hasError('required')">This field is required</mat-error>
+                  <mat-form-field class="form-full-width">
+                    <input matInput type="text" name="producer" required [formControl]="putOrderFormService.form.get('producer')" placeholder="producer" />
+                    <mat-error *ngIf="putOrderFormService.form.get('producer') && putOrderFormService.form.get('producer').hasError('required')">This field is required</mat-error>
                   </mat-form-field>
 
+                </div>
               </div>
-            </div>
 
-            <div class='row'>
-              <div class='col-12'>
+              <div class="row">
+                <div class="col-12">
 
-                  <mat-form-field class='account-form-full-width'>
-                    <input matInput type="text" name="model" [formControl]="putOrderFormService.form.get(model)" placeholder="model" />
-                    <mat-error *ngIf="model.hasError('required')">This field is required</mat-error>
+                  <mat-form-field class="form-full-width">
+                    <input matInput type="text" name="model" required [formControl]="putOrderFormService.form.get('model')" placeholder="model" />
+                    <mat-error *ngIf="putOrderFormService.form.get('model') && putOrderFormService.form.get('model').hasError('required')">This field is required</mat-error>
                   </mat-form-field>
 
+                </div>
               </div>
-            </div>
 
-            <div class='row'>
-              <div class='col-12'>
+              <div class="row">
+                <div class="col-12">
 
-                  <mat-form-field class='account-form-full-width'>
-                    <input matInput type="text" name="customerName" [formControl]="putOrderFormService.form.get(customerName)" placeholder="customerName" />
-                    <mat-error *ngIf="customerName.hasError('required')">This field is required</mat-error>
+                  <mat-form-field class="form-full-width">
+                    <input matInput type="text" name="customerName" required [formControl]="putOrderFormService.form.get('customerName')" placeholder="customerName" />
+                    <mat-error *ngIf="putOrderFormService.form.get('customerName') && putOrderFormService.form.get('customerName').hasError('required')">This field is required</mat-error>
                   </mat-form-field>
 
+                </div>
               </div>
-            </div>
-
-        </form>
-
-        <button mat-raised-button color='primary' type='submit' [disabled]='putOrderFormService.form.invalid'>
+            <button mat-raised-button color="primary" type="submit" [disabled]="putOrderFormService.form.invalid">Save</button>
+          </form>
 
       </div>
     </div>

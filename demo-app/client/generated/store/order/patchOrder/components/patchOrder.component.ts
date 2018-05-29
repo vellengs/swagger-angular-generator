@@ -6,25 +6,26 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {OrderService} from '../../../controllers/Order';
-import {PatchOrderFormService} from './patchOrder.service';
+import {Store} from '@ngrx/store';
+import {PatchOrderFormService} from '../patchOrder.service';
+import {Start} from '../states/actions';
 
 @Component({
-  selector: 'patchOrder',
+  selector: 'test-patch-order',
   templateUrl: './patchOrder.component.html',
 })
 
 export class PatchOrderComponent implements OnInit {
   constructor(
     public patchOrderFormService: PatchOrderFormService,
-    private orderService: OrderService,
+    private store: Store<{}>,
   ) {}
 
   ngOnInit() {
   }
 
-  order() {
-    this.orderService.patchOrder(this.patchOrderFormService.form.value);
+  patchorder() {
+    this.store.dispatch(new Start(this.patchOrderFormService.form.value));
   }
 
 }

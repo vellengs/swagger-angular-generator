@@ -6,25 +6,26 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {LoginService} from '../../../controllers/Login';
-import {LoginFormService} from './login.service';
+import {Store} from '@ngrx/store';
+import {LoginFormService} from '../login.service';
+import {Start} from '../states/actions';
 
 @Component({
-  selector: 'login',
+  selector: 'test-login',
   templateUrl: './login.component.html',
 })
 
 export class LoginComponent implements OnInit {
   constructor(
     public loginFormService: LoginFormService,
-    private loginService: LoginService,
+    private store: Store<{}>,
   ) {}
 
   ngOnInit() {
   }
 
   login() {
-    this.loginService.login(this.loginFormService.form.value);
+    this.store.dispatch(new Start(this.loginFormService.form.value));
   }
 
 }
